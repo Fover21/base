@@ -19,6 +19,7 @@ logging.basicConfig(
 
 sys.setrecursionlimit(1500)
 
+# windows不支持 提升速度
 # asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())
 
 
