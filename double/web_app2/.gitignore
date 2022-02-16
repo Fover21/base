@@ -1,0 +1,7 @@
+.idea
+*.pyc
+/ape_app/__pycache__
+/ape_app/publish/__pycache__
+.exe
+.log
+go.sum

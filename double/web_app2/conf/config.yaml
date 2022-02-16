@@ -1,0 +1,38 @@
+name: "web_app2"
+mode: "dev"
+port: 8088
+version: "v0.1.5"
+start_time: "2020-07-01"
+machine_id: 1
+
+log:
+  level: "debug"
+  filename: "web_app.log"
+  max_site: 200
+  max_backups: 7
+  max_age: 30
+
+mysql:
+  host: "192.168.10.5"
+  port: 3306
+#  user: "rshy"
+#  password: "123456"
+  user: "wzy"
+  password: "root1234"
+  db_name: "log"
+  max_open_conns: 200
+  max_idle_conns: 50
+
+redis:
+  host: "192.168.10.10"
+  port: 7000
+  password: ""
+  db: 0
+  poll_site: 500
+
+mongo:
+  host: "192.168.10.10"
+  port: 27017
+  user: "rshy"
+  password: "root1234%40AWJSW"
+  db_name: "admin"
