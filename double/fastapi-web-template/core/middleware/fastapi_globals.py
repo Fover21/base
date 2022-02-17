@@ -11,6 +11,7 @@ class Globals:
     _reset_tokens: Dict[str, Token]
 
     def __init__(self) -> None:
+        # 使用self._vars = {} self._reset_tokens = {}
         object.__setattr__(self, "_vars", {})
         object.__setattr__(self, "_reset_tokens", {})
 
@@ -30,6 +31,7 @@ class Globals:
             self._reset_tokens[item] = self._vars[item].set(None)
 
     def __getattr__(self, item: str) -> Any:
+        # 如果在__getattr__(self, item)存在通过self.item访问属性，会出现无限递归错误。
         return self._vars[item].get()
 
     def __setattr__(self, item: str, value: Any) -> None:

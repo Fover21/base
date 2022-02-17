@@ -1,6 +1,6 @@
 import uuid
 
-from app.app01.base import Base
+from core.storage import Base
 from sqlalchemy import Column, String
 
 

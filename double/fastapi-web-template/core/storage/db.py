@@ -12,7 +12,7 @@ class SQLAlchemy(object):
     def __init__(self, database_url=None, echo=False):
         self.engine = None
         self.session = None
-
+        # 初始化为None
         if database_url:
             self.update_engine(database_url, echo)
 

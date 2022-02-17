@@ -9,6 +9,7 @@ class DbSessionMiddleware:
         self.app = app
 
     async def __call__(self, scope: Scope, receive: Receive, send: Send) -> None:
+        # lifespan 控制服务器启停
         if scope["type"] != "lifespan":
             session = db.session()
             # add global session

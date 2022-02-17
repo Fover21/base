@@ -22,12 +22,16 @@ def str2float(v):
 
 
 class Base:
+    # ------------------- log ---------------------
+    LOG_PATH = '/'
+    LOG_NAME = 'app'
+    BACK_COUNT = 30
     # ------------------- need config ---------------------
-    DATABASE_MYSQL_URL = os.getenv("DATABASE_MYSQL_URL", "root:dangerous@127.0.0.1:3306/test")
+    DATABASE_MYSQL_URL = os.getenv("DATABASE_MYSQL_URL", "wzy:root1234@192.168.10.5:3306/log")
 
     # ------------------- option ---------------------
     CONFIG_NAME = "BASE"
-    SERVICE_NAME = os.getenv("SERVICE_NAME", "fastapi-web-template")
+    SERVICE_NAME = os.getenv("SERVICE_NAME", "fastapi-web")
 
     TZ = os.getenv("TZ", "Asia/Shanghai")
 
@@ -35,8 +39,10 @@ class Base:
 
     # db
     DATABASE_URL = os.getenv("DATABASE_URL", f"mysql+aiomysql://{DATABASE_MYSQL_URL}?charset=utf8mb4")
+    # 为 True 时候会把sql语句打印出来，当然，你可以通过配置logger来控制输出
     SHOW_SQL = str2bool(os.getenv("SHOW_SQL", "False"))
-    RETURN_SQL = str2bool(os.getenv("RETURN_SQL", "True"))
+    # # show_sql控制, 收集每一条执行sql记录存放到g对象里，最终会在接口返回报文里添加这些记录
+    RETURN_SQL = str2bool(os.getenv("RETURN_SQL", "False"))
     DATABASE_URL_ENCODING = os.getenv("DATABASE_URL_ENCODING", "utf8mb4")
 
     DB_POOL_RECYCLE = str2int(os.getenv("DB_POOL_RECYCLE", 3600))

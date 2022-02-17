@@ -6,6 +6,7 @@ from .base import CommandBase, str2camel
 
 
 apis_file = """
+# -*- coding: utf-8 -*-
 from fastapi import APIRouter
 
 from core.dependencies import base_dependen
@@ -22,7 +23,7 @@ router.add_api_route(
     endpoint=list_{app_name}_view,
     methods=["GET"],
     response_model=PageSchema[{AppName}ListRes],
-    dependencies=[base_dependen,]
+    dependencies=[base_dependen, ]
 )
 
 router.add_api_route(
@@ -30,7 +31,7 @@ router.add_api_route(
     path="/",
     endpoint=create_{app_name}_view,
     methods=["POST"],
-    dependencies=[base_dependen,]
+    dependencies=[base_dependen, ]
 )
 
 router.add_api_route(
@@ -38,11 +39,12 @@ router.add_api_route(
     path="/",
     endpoint=delete_{app_name}_view,
     methods=["DELETE"],
-    dependencies=[base_dependen,]
+    dependencies=[base_dependen, ]
 )
 """
 
 schema_file = """
+# -*- coding: utf-8 -*-
 from typing import List, Optional
 from core.schema import BaseSchema
 from pydantic.fields import Field
@@ -53,6 +55,7 @@ class {AppName}ListRes(BaseSchema):
     name: Optional[str] = Field(description="名称")
     description: Optional[str] = Field(description="描述")
 
+
 class {AppName}CreateReq(BaseSchema):
     name: Optional[str] = Field(description="名称")
     description: Optional[str] = Field(description="描述")
@@ -60,6 +63,7 @@ class {AppName}CreateReq(BaseSchema):
 """
 
 views_file = """
+# -*- coding: utf-8 -*-
 from typing import Any, Optional
 from app.{app_name}.{app_name} import list_{app_name}, create_{app_name}, delete_{app_name}
 from app.{app_name}.schema import {AppName}CreateReq
@@ -71,9 +75,11 @@ async def list_{app_name}_view(
 ):
     return await list_{app_name}(page, limit)
 
+
 async def create_{app_name}_view(item: {AppName}CreateReq):
     await create_{app_name}(item.name, item.description)
     return {{"data": "success"}}
+
 
 async def delete_{app_name}_view(record_id: str):
     await delete_{app_name}(record_id)
@@ -82,6 +88,7 @@ async def delete_{app_name}_view(record_id: str):
 """
 
 app_util_file = """
+# -*- coding: utf-8 -*-
 from sqlalchemy import select, insert
 from core.middleware import g
 from core.schema import paginate_handler
@@ -94,8 +101,10 @@ async def list_{app_name}(page: int, limit: int):
     stmt = select({AppName})
     return await paginate_handler(page=page, limit=limit, db=g.db, stmt=stmt)
 
+
 async def create_{app_name}(name: str, description: str):
     return await g.db.execute(insert({AppName}).values({{"name": name, "description": description}}))
+
 
 async def delete_{app_name}(record_id: str):
     obj = await g.db.get({AppName}, record_id)
@@ -107,6 +116,7 @@ async def delete_{app_name}(record_id: str):
 """
 
 model_file = """
+# -*- coding: utf-8 -*-
 import uuid
 
 from core.storage import Base
@@ -114,10 +124,13 @@ from sqlalchemy import Column, String
 
 
 class {AppName}(Base):
-    __tablename__ = "{app_name}"
-    id = Column(String(36), primary_key=True, default=str(uuid.uuid4()))
-    name = Column(String(128), nullable=False)
-    description = Column(String(512), nullable=False)
+    
+    # __tablename__ = "{app_name}"
+    # id = Column(String(36), primary_key=True, default=str(uuid.uuid4()))
+    # name = Column(String(128), nullable=False)
+    # description = Column(String(512), nullable=False)
+    
+    pass
 
 """
 
@@ -164,7 +177,7 @@ class StartAppCommand(CommandBase):
             sys.stderr.write(f"app {cls.app_name} already exists")
             sys.exit(1)
         os.makedirs(cls.root)
-        with open(os.path.join(cls.root, "__init__.py"), "w") as f:
+        with open(os.path.join(cls.root, "__init__.py"), "w", encoding='utf-8') as f:
             f.write(cls.copyright_str)
 
     @classmethod
@@ -173,7 +186,7 @@ class StartAppCommand(CommandBase):
         创建目录和init文件
         """
         api_file_path = os.path.join(cls.root, f"apis.py")
-        with open(api_file_path, "w") as f:
+        with open(api_file_path, "w", encoding='utf-8') as f:
             f.write(cls.copyright_str)
             f.write(apis_file.format(AppName=str2camel(cls.app_name), app_name=cls.app_name))
 
@@ -183,7 +196,7 @@ class StartAppCommand(CommandBase):
         创建模型文件
         """
         api_file_path = os.path.join(cls.root, "models.py")
-        with open(api_file_path, "w") as f:
+        with open(api_file_path, "w", encoding='utf-8') as f:
             f.write(cls.copyright_str)
             f.write(model_file.format(AppName=str2camel(cls.app_name), app_name=cls.app_name))
 
@@ -193,7 +206,7 @@ class StartAppCommand(CommandBase):
         创建schema文件
         """
         api_file_path = os.path.join(cls.root, "schema.py")
-        with open(api_file_path, "w") as f:
+        with open(api_file_path, "w", encoding='utf-8') as f:
             f.write(cls.copyright_str)
             f.write(schema_file.format(AppName=str2camel(cls.app_name), app_name=cls.app_name))
 
@@ -203,7 +216,7 @@ class StartAppCommand(CommandBase):
         创建view文件
         """
         api_file_path = os.path.join(cls.root, f"views.py")
-        with open(api_file_path, "w") as f:
+        with open(api_file_path, "w", encoding='utf-8') as f:
             f.write(cls.copyright_str)
             f.write(views_file.format(AppName=str2camel(cls.app_name), app_name=cls.app_name))
 
@@ -213,7 +226,7 @@ class StartAppCommand(CommandBase):
         创建controller文件
         """
         api_file_path = os.path.join(cls.root, f"{cls.app_name}.py")
-        with open(api_file_path, "w") as f:
+        with open(api_file_path, "w", encoding='utf-8') as f:
             f.write(cls.copyright_str)
             f.write(app_util_file.format(AppName=str2camel(cls.app_name), app_name=cls.app_name))
 
@@ -223,7 +236,7 @@ class StartAppCommand(CommandBase):
         register router and configure sqla model
         """
         new_c = []
-        with open("main.py", "r+") as f:
+        with open("main.py", "r+", encoding='utf-8') as f:
             f.seek(0)
             while True:
                 c = f.readline()
@@ -237,5 +250,5 @@ class StartAppCommand(CommandBase):
                     new_c.append(f"    # noinspection PyUnresolvedReferences\n")
                     new_c.append(f"    from app.{cls.app_name} import models\n\n")
 
-        with open("main.py", "w") as f:
+        with open("main.py", "w", encoding='utf-8') as f:
             f.writelines(new_c)
