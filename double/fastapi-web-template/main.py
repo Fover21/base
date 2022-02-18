@@ -53,10 +53,13 @@ def init_sync(app):
     sys_log.info(f'初始化日志')
     log_init()
     # 初始化中间件
+    sys_log.info(f'初始化中间件')
     register_http_middleware(app)
     # 初始化路由
+    sys_log.info(f'初始化路由')
     register_router(app)
     # 初始化模型
+    sys_log.info(f'初始化模型')
     configure_models()
 
 

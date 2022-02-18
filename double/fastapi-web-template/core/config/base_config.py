@@ -22,10 +22,18 @@ def str2float(v):
 
 
 class Base:
+    # ------------------- Middleware ---------------------
+    # 指定允许跨域请求的url
+    ORIGINS = ["*"]
+    
     # ------------------- log ---------------------
+    # 日志路径
     LOG_PATH = '/'
+    # 日志名称
     LOG_NAME = 'app'
+    # 日志保存个数
     BACK_COUNT = 30
+    
     # ------------------- need config ---------------------
     DATABASE_MYSQL_URL = os.getenv("DATABASE_MYSQL_URL", "wzy:root1234@192.168.10.5:3306/log")
 
