@@ -34,6 +34,9 @@ class Base:
     # 日志保存个数
     BACK_COUNT = 30
     
+    # ------------------- redis ---------------------
+    REDIS_CACHE_URI: str = "redis://192.168.10.10:6379/0"
+    
     # ------------------- need config ---------------------
     DATABASE_MYSQL_URL = os.getenv("DATABASE_MYSQL_URL", "wzy:root1234@192.168.10.5:3306/log")
 
