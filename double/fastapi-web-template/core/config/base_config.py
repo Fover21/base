@@ -34,9 +34,16 @@ class Base:
     # 日志保存个数
     BACK_COUNT = 30
     
-    # ------------------- redis ---------------------
-    REDIS_CACHE_URI: str = "redis://192.168.10.10:6379/0"
+    # ------------------- mongo ---------------------
+    # mongodb:'mongodb://root:root1234%40AWJSW@192.168.8.209:27017/fanwen?authSource=admin',
+    MONGO_CACHE_URI: str = "mongodb://rshy:root1234%40AWJSW@192.168.10.10:27017/bigdata?authSource=admin"
     
+    # ------------------- redis ---------------------
+    REDIS_CACHE_URI: str = "redis://192.168.10.10"
+    REDIS_CACHE_PORT: int = 6379
+    REDIS_CACHE_DB: int = "1"
+    REDIS_CACHE_PASSWORD: str = ""
+
     # ------------------- need config ---------------------
     DATABASE_MYSQL_URL = os.getenv("DATABASE_MYSQL_URL", "wzy:root1234@192.168.10.5:3306/log")
 

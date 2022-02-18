@@ -22,7 +22,9 @@ class MyRedis:
         unix://[[username]:[password]]@/path/to/socket.sock?db=0
         """
         # _pool = await aioredis.from_url("127.0.0.1", port=6379, db=0, password='', decode_responses=True)
-        _pool = aioredis.from_url(config.REDIS_CACHE_URI, decode_responses=True)
+        _pool = aioredis.from_url(config.REDIS_CACHE_URI, port=config.REDIS_CACHE_PORT,
+                                  password=config.REDIS_CACHE_PASSWORD, db=config.REDIS_CACHE_DB, encoding="utf-8",
+                                  decode_responses=True)
         return cls(pool=_pool)
 
     @classmethod
