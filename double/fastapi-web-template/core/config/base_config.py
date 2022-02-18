@@ -35,6 +35,10 @@ class Base:
     BACK_COUNT = 30
     
     # ------------------- mongo ---------------------
+    KAFKA_BOOTSTRAP_SERVERS: list = ["192.168.10.10:9092"]
+    KAFKA_TOPIC: str = "topic"
+    
+    # ------------------- mongo ---------------------
     # mongodb:'mongodb://root:root1234%40AWJSW@192.168.8.209:27017/fanwen?authSource=admin',
     MONGO_CACHE_URI: str = "mongodb://rshy:root1234%40AWJSW@192.168.10.10:27017/bigdata?authSource=admin"
     

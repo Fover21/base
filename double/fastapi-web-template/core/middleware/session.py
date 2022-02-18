@@ -1,9 +1,7 @@
 from sqlalchemy.ext.asyncio import session
 from starlette.types import ASGIApp, Receive, Scope, Send
 from . import g
-from core.storage import db, rdb, mgdb
-
-from aiomongo.client import AioMongoClient
+from core.storage import db
 
 
 class DbSessionMiddleware:
@@ -16,8 +14,6 @@ class DbSessionMiddleware:
             session = db.session()
             # add global session
             g.db = session
-            g.rdb = rdb.redis_session()
-            g.mgdb: AioMongoClient = mgdb.mongo_session()
 
             # add sql log
             g.sql_log = []

@@ -9,7 +9,7 @@ from app.ws import create_ws_manager
 from core.utils.api_exception import http_exception_handler, APIException
 from core.config.common import config
 from core.middleware import register_http_middleware
-from core.storage import create_db
+from core.storage import create_db, create_mongodb
 from core.utils.logs import log_init, sys_log
 from fastapi import FastAPI
 
@@ -72,6 +72,7 @@ def init_async():
     # 将协程加入事件循环中
     if loop and loop.is_running():
         loop.create_task(create_db())
+        loop.create_task(create_mongodb())
         loop.create_task(create_ws_manager())
 
 
