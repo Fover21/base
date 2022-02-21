@@ -16,20 +16,25 @@ async def list_app01_view(
     page: Optional[int] = 1,
     limit: Optional[int] = 10,
 ):
-    # print("request", request.app.state.redis)
+    # print("request", request)
+    # print("request", request.app.__dict__)
+    # # print("request", request.app.state.redis)
+    #
+    # # 操作redis
+    # await request.app.state.redis.set("a", 1)
+    # re_data = await request.app.state.redis.get("a")
+    # print(re_data)
+    #
+    # # 操作mongodb
+    # db = request.app.state.mongo["bigdata"]
+    # collection = db["bigdata"]
+    # print(collection)
+    # c = await collection.find_one({})
+    # print(c)
 
-    # 操作redis
-    await request.app.state.redis.set("a", 1)
-    re_data = await request.app.state.redis.get("a")
-    print(re_data)
-
-    # 操作mongodb
-    db = request.app.state.mongo["bigdata"]
-    collection = db["bigdata"]
-    print(collection)
-    c = await collection.find_one({})
-    print(c)
-
+    # 执行原生的sql
+    stmt = await g.db.execute(f"select * from app01")
+    print("stmt", stmt.fetchall())
     # return await list_app01(page, limit)
     return {"data": "success"}
 
