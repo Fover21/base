@@ -6,26 +6,30 @@ from app.app01.app01 import list_app01, create_app01, delete_app01
 from app.app01.schema import App01CreateReq
 from core.middleware import g
 from aiomongo.client import AioMongoClient
-from core.storage import rdb, mgdb, create_mongodb
+from core.storage import rdb, mgdb
 import asyncio
+from fastapi import Request
 
 
 async def list_app01_view(
+    request: Request,
     page: Optional[int] = 1,
     limit: Optional[int] = 10,
 ):
-    # print(g, g.db)
-    print("g.redis_session", rdb.pool)
-    # print("g.db", g.db)
-    await rdb.pool.set("a", 1)
-    re_data = await rdb.pool.get("a")
+    # print("request", request.app.state.redis)
+
+    # 操作redis
+    await request.app.state.redis.set("a", 1)
+    re_data = await request.app.state.redis.get("a")
     print(re_data)
 
-    db = (await create_mongodb())["bigdata"]
+    # 操作mongodb
+    db = request.app.state.mongo["bigdata"]
     collection = db["bigdata"]
     print(collection)
     c = await collection.find_one({})
     print(c)
+
     # return await list_app01(page, limit)
     return {"data": "success"}
 

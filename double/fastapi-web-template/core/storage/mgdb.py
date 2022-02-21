@@ -15,17 +15,14 @@ class MyMongo:
         self.pool = pool
 
     @classmethod
-    async def create(cls):
+    async def create(cls) -> aiomongo.AioMongoClient:
         _pool = await aiomongo.create_client(config.MONGO_CACHE_URI)
         # 操作
         # db = (await _pool)["bigdata"]
         # collection = db["bigdata"]
         # c = await collection.find_one({})
-        return cls(pool=_pool)
+        cls.pool = _pool
+        return _pool
 
-
-async def create_mongodb():
-    poll = await mgdb.create()
-    return poll.pool
 
 mgdb = MyMongo()

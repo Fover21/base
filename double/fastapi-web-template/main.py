@@ -9,7 +9,7 @@ from app.ws import create_ws_manager
 from core.utils.api_exception import http_exception_handler, APIException
 from core.config.common import config
 from core.middleware import register_http_middleware
-from core.storage import create_db, create_mongodb
+from core.storage import create_db, rdb, mgdb
 from core.utils.logs import log_init, sys_log
 from fastapi import FastAPI
 
@@ -25,7 +25,7 @@ sys.setrecursionlimit(1500)
 # asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())
 
 
-def configure_models():
+def configure_models() -> None:
     """
     add model to sqla metadata
     """
@@ -36,7 +36,7 @@ def configure_models():
     # from app.ws import models
 
 
-def register_router(app: FastAPI):
+def register_router(app: FastAPI) -> None:
     """
     注册路由
     """
@@ -46,6 +46,36 @@ def register_router(app: FastAPI):
 
     from app.ws.apis import router as ws_router
     app.include_router(ws_router, prefix="/wss")
+
+
+def register_redis_mongodb(app: FastAPI) -> None:
+    """
+    把redis挂载到app对象上面
+    :param app:
+    :return:
+    """
+
+    @app.on_event('startup')
+    async def startup_event():
+        """
+        获取链接
+        :return:
+        """
+        sys_log.info(f'获取链接')
+        app.state.redis = await rdb.create()
+        app.state.mongo = await mgdb.create()
+
+    @app.on_event('shutdown')
+    async def shutdown_event():
+        """
+        关闭链接
+        :return:
+        """
+        sys_log.info(f'关闭链接')
+        app.state.redis.close()
+        app.state.mongo.close()
+        await app.state.redis.wait_closed()
+        await app.state.mongo.wait_closed()
 
 
 def init_sync(app):
@@ -61,6 +91,9 @@ def init_sync(app):
     # 初始化模型
     sys_log.info(f'初始化模型')
     configure_models()
+    # 初始化数据库链接
+    sys_log.info(f'初始化数据库链接')
+    register_redis_mongodb(app)
 
 
 def init_async():
@@ -72,7 +105,6 @@ def init_async():
     # 将协程加入事件循环中
     if loop and loop.is_running():
         loop.create_task(create_db())
-        loop.create_task(create_mongodb())
         loop.create_task(create_ws_manager())
 
 
