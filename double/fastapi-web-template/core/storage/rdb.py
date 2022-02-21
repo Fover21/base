@@ -29,7 +29,7 @@ class MyRedis:
                                             password=config.REDIS_CACHE_PASSWORD, db=config.REDIS_CACHE_DB,
                                             encoding="utf-8",
                                             decode_responses=True)
-            if not _pool.ping():
+            if not (await _pool.ping()):
                 logger.info("连接redis超时")
             cls.pool = _pool
             return _pool

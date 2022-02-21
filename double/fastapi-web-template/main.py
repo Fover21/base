@@ -61,8 +61,9 @@ def register_redis_mongodb(app: FastAPI) -> None:
         获取链接
         :return:
         """
-        sys_log.info(f'获取链接')
+        sys_log.info(f'获取redis链接')
         app.state.redis = await rdb.create()
+        sys_log.info(f'获取mongodb链接')
         app.state.mongo = await mgdb.create()
 
     @app.on_event('shutdown')
