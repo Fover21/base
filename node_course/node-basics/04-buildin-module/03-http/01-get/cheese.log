@@ -1,0 +1,86 @@
+[2020-12-01T17:07:47.640] [DEBUG] cheese - /api/list
+[2020-12-01T17:17:02.493] [DEBUG] cheese - username=tongyi&password=123
+[2020-12-01T17:22:43.435] [DEBUG] cheese - ClientRequest {
+  _events: [Object: null prototype] {
+    socket: [Function: bound onceWrapper] { listener: [Function: onSocket] }
+  },
+  _eventsCount: 1,
+  _maxListeners: undefined,
+  outputData: [
+    {
+      data: 'GET /mtop/mf/cat/list HTTP/1.1\r\n' +
+        'Host: www.xiaomiyoupin.com\r\n' +
+        'Connection: close\r\n' +
+        '\r\n',
+      encoding: 'latin1',
+      callback: [Function: bound onFinish]
+    }
+  ],
+  outputSize: 81,
+  writable: true,
+  destroyed: false,
+  _last: true,
+  chunkedEncoding: false,
+  shouldKeepAlive: false,
+  _defaultKeepAlive: true,
+  useChunkedEncodingByDefault: false,
+  sendDate: false,
+  _removedConnection: false,
+  _removedContLen: false,
+  _removedTE: false,
+  _contentLength: 0,
+  _hasBody: true,
+  _trailer: '',
+  finished: true,
+  _headerSent: true,
+  socket: null,
+  _header: 'GET /mtop/mf/cat/list HTTP/1.1\r\n' +
+    'Host: www.xiaomiyoupin.com\r\n' +
+    'Connection: close\r\n' +
+    '\r\n',
+  _keepAliveTimeout: 0,
+  _onPendingData: [Function: noopPendingOutput],
+  agent: Agent {
+    _events: [Object: null prototype] {
+      free: [Function (anonymous)],
+      newListener: [Function: maybeEnableKeylog]
+    },
+    _eventsCount: 2,
+    _maxListeners: undefined,
+    defaultPort: 443,
+    protocol: 'https:',
+    options: { path: null },
+    requests: {},
+    sockets: { 'www.xiaomiyoupin.com:443::::::::::::::::::': [Array] },
+    freeSockets: {},
+    keepAliveMsecs: 1000,
+    keepAlive: false,
+    maxSockets: Infinity,
+    maxFreeSockets: 256,
+    scheduling: 'fifo',
+    maxTotalSockets: Infinity,
+    totalSocketCount: 1,
+    maxCachedSessions: 100,
+    _sessionCache: { map: {}, list: [] },
+    [Symbol(kCapture)]: false
+  },
+  socketPath: undefined,
+  method: 'GET',
+  maxHeaderSize: undefined,
+  insecureHTTPParser: undefined,
+  path: '/mtop/mf/cat/list',
+  _ended: false,
+  res: null,
+  aborted: false,
+  timeoutCb: null,
+  upgradeOrConnect: false,
+  parser: null,
+  maxHeadersCount: null,
+  reusedSocket: false,
+  host: 'www.xiaomiyoupin.com',
+  protocol: 'https:',
+  [Symbol(kCapture)]: false,
+  [Symbol(kNeedDrain)]: false,
+  [Symbol(corked)]: 0,
+  [Symbol(kOutHeaders)]: [Object: null prototype] { host: [ 'Host', 'www.xiaomiyoupin.com' ] }
+}
