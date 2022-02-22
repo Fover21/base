@@ -2,9 +2,7 @@ import logging
 
 import aioredis
 from core.config.common import config
-from core.middleware import g
 
-import asyncio
 
 logger = logging.getLogger(__name__)
 
@@ -16,7 +14,7 @@ class MyRedis:
         self.pool = pool
 
     @classmethod
-    async def create(cls) -> aioredis.Redis:
+    async def create(cls):
         _pool = None
         try:
             #     https://aioredis.readthedocs.io/en/latest/getting-started/

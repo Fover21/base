@@ -1,9 +1,7 @@
 import logging
 
-import aiomongo, asyncio
-from aiomongo.client import AioMongoClient
+import aiomongo
 from core.config.common import config
-from core.middleware import g
 
 logger = logging.getLogger(__name__)
 
@@ -15,7 +13,7 @@ class MyMongo:
         self.pool = pool
 
     @classmethod
-    async def create(cls) -> aiomongo.AioMongoClient:
+    async def create(cls):
         _pool = None
         try:
             _pool = await aiomongo.create_client(config.MONGO_CACHE_URI)
