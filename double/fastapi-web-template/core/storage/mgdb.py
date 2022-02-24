@@ -1,6 +1,6 @@
 import logging
 
-import aiomongo
+from motor.motor_asyncio import AsyncIOMotorClient
 from core.config.common import config
 
 logger = logging.getLogger(__name__)
@@ -16,11 +16,12 @@ class MyMongo:
     async def create(cls):
         _pool = None
         try:
-            _pool = await aiomongo.create_client(config.MONGO_CACHE_URI)
+            _pool = AsyncIOMotorClient(config.MONGO_CACHE_URI)
             # 操作
-            # db = (await _pool)["bigdata"]
+            # db = _pool["bigdata"]
             # collection = db["bigdata"]
             # c = await collection.find_one({})
+            # print(c)
             cls.pool = _pool
             return _pool
         except Exception as e:

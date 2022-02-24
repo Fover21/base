@@ -1,5 +1,5 @@
 #FROM blackice1414/python395-fastapi:latest
-FROM rackspacedot/python37:latest
+FROM rackspacedot/python38:latest
 
 RUN sed -i 's/deb.debian.org/mirrors.aliyun.com/g' /etc/apt/sources.list
 

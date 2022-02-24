@@ -1,5 +1,4 @@
 aiokafka==0.7.2
-aiomongo==0.1
 aiomysql==0.0.22
 aioredis==2.0.1
 asgiref==3.4.1
@@ -16,12 +15,13 @@ h11==0.12.0
 httptools==0.3.0
 importlib-metadata==4.8.2
 kafka-python==2.0.2
+motor==2.5.1
 pip==21.2.4
 pycodestyle==2.7.0
 pycparser==2.21
 pydantic==1.8.2
 PyJWT==2.1.0
-pymongo==3.4.0
+pymongo==3.12.3
 PyMySQL==0.9.3
 python-dotenv==0.19.2
 pytz==2021.3
@@ -32,10 +32,8 @@ starlette==0.14.2
 toml==0.10.2
 typing-extensions==3.10.0.0
 uvicorn==0.17.4
-# uvloop==0.14.0
 watchgod==0.7
 websockets==10.1
 wheel==0.37.1
 wincertstore==0.2
 zipp==3.7.0
-

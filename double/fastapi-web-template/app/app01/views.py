@@ -5,7 +5,6 @@ from typing import Any, Optional
 from app.app01.app01 import list_app01, create_app01, delete_app01
 from app.app01.schema import App01CreateReq
 from core.middleware import g
-from aiomongo.client import AioMongoClient
 from core.storage import rdb, mgdb
 import asyncio
 from fastapi import Request
@@ -26,15 +25,15 @@ async def list_app01_view(
     # print(re_data)
     #
     # # 操作mongodb
-    # db = request.app.state.mongo["bigdata"]
-    # collection = db["bigdata"]
-    # print(collection)
-    # c = await collection.find_one({})
-    # print(c)
+    db = request.app.state.mongo["bigdata"]
+    collection = db["bigdata"]
+    print(collection)
+    c = await collection.find_one({})
+    print(c)
 
     # 执行原生的sql
-    stmt = await g.db.execute(f"select * from app01")
-    print("stmt", stmt.fetchall())
+    # stmt = await g.db.execute(f"select * from app01")
+    # print("stmt", stmt.fetchall())
     # return await list_app01(page, limit)
     return {"data": "success"}
 
