@@ -1,0 +1,24 @@
+<html>
+
+    <body>
+        <form action="/post" method="post">
+            <input id="hi" type="hidden" name="_xsrf" value=""/>
+            姓名：<input type="text" name="username">
+            <hr/>
+            密码：<input type="password" name="password">
+            <hr/>
+            爱好：
+            <input type="checkbox" name="hobby" value="power">权利
+            <input type="checkbox" name="hobby" value="money">金钱
+            <input type="checkbox" name="hobby" value="book">书
+            <input type="submit" value="登录">
+        </form>
+    </body>
+        <script>
+        function getXsrf(name){
+            var cook=document.cookie.match("\\b"+name+"=([^;]*)\\b")
+            return cook ? cook[1] : undefined
+        }
+        document.getElementById("hi").value=getXsrf("_xsrf")
+    </script>
+</html>

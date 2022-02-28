@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>{{title}}</title>
+</head>
+<body>
+	<ul>
+		{% for stu in stus%}
+		<li>编号：{{stu["id"]}}</li>
+		<li>用户名：{{stu["username"]}}</li>
+		<li>密码：{{stu["password"]}}</li>
+		{% end %}		
+	</ul>
+
+</body>
+</html>
