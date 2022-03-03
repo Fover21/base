@@ -25,16 +25,23 @@ async def list_app01_view(
     # print(re_data)
     #
     # # 操作mongodb
-    db = request.app.state.mongo["bigdata"]
-    collection = db["bigdata"]
-    print(collection)
-    c = await collection.find_one({})
-    print(c)
+    # db = request.app.state.mongo["bigdata"]
+    # collection = db["bigdata"]
+    # print(collection)
+    # c = await collection.find_one({})
+    # print(c)
 
-    # 执行原生的sql
+    # 执行原生的sql 基于g.db
     # stmt = await g.db.execute(f"select * from app01")
     # print("stmt", stmt.fetchall())
     # return await list_app01(page, limit)
+
+    # # 操作mysql
+    db = request.app.state.mysql
+    async with db.acquire() as conn:
+        result = await conn.execute("SELECT * FROM app01")
+        data = await result.fetchone()
+        print(data)
     return {"data": "success"}
 
 

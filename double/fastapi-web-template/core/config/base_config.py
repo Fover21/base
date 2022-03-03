@@ -48,6 +48,14 @@ class Base:
     REDIS_CACHE_DB: int = "1"
     REDIS_CACHE_PASSWORD: str = ""
 
+    # ------------------- mysql ---------------------
+    MYSQL_HOST: str = "192.168.10.5"
+    MYSQL_PORT: int = 3306
+    MYSQL_DB: str = "log"
+    MYSQL_USER: str = "wzy"
+    MYSQL_PASSWORD: str = "root1234"
+    MYSQL_CONNECT_TIMEOUT: int = 10
+
     # ------------------- need config ---------------------
     DATABASE_MYSQL_URL = os.getenv("DATABASE_MYSQL_URL", "wzy:root1234@192.168.10.5:3306/log")
 

@@ -9,7 +9,7 @@ from app.ws import create_ws_manager
 from core.utils.api_exception import http_exception_handler, APIException
 from core.config.common import config
 from core.middleware import register_http_middleware
-from core.storage import create_db, rdb, mgdb
+from core.storage import create_db, rdb, mgdb, mdb
 from core.utils.logs import log_init, sys_log
 from fastapi import FastAPI
 
@@ -61,6 +61,8 @@ def register_redis_mongodb(app: FastAPI) -> None:
         获取链接
         :return:
         """
+        sys_log.info(f'获取mysql链接')
+        app.state.mysql = await mdb.create()
         sys_log.info(f'获取redis链接')
         app.state.redis = await rdb.create()
         sys_log.info(f'获取mongodb链接')
@@ -73,8 +75,10 @@ def register_redis_mongodb(app: FastAPI) -> None:
         :return:
         """
         sys_log.info(f'关闭链接')
+        app.state.mysql.close()
         app.state.redis.close()
         app.state.mongo.close()
+        await app.state.mysql.wait_closed()
         await app.state.redis.wait_closed()
         await app.state.mongo.wait_closed()
 
@@ -123,7 +127,7 @@ app = FastAPI(
 # 同步初始化
 init_sync(app)
 # 异步初始化
-init_async()
+# init_async()
 
 
 if __name__ == "__main__":

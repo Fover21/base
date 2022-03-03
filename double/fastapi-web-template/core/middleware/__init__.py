@@ -21,8 +21,10 @@ def register_http_middleware(app: FastAPI):
         allow_methods=["*"],
         allow_headers=["*"],
     )
+
+    # SQLAlchemy 配置全局
     # use g.db for get sqla session
-    app.add_middleware(DbSessionMiddleware)
+    # app.add_middleware(DbSessionMiddleware)
 
     # the global object: g
-    app.add_middleware(GlobalsMiddleware)
+    # app.add_middleware(GlobalsMiddleware)
